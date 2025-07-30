@@ -196,15 +196,18 @@
 						</p>
 						<ul class="ul">
 							<li>
-								<a href="https://gitee.com/bjxin/birthday-code-2.0" target="_blank">
-									生日代码2.0
+								<a href="https://gitee.com/bjxin/JXin-Home" target="_blank">
+									极简 仿终端个人主页
 								</a>
 							</li>
-						</ul>
-						<ul class="ul">
 							<li>
 								<a href="https://gitee.com/bjxin/JHJY-Home" target="_blank">
-									极简风主页：敬候佳音
+									极简 敬候佳音个人主页
+								</a>
+							</li>
+							<li>
+								<a href="https://gitee.com/bjxin/birthday-code-2.0" target="_blank">
+									生日代码2.0
 								</a>
 							</li>
 						</ul>
@@ -249,8 +252,10 @@
 		</div>
 		<!-- 页脚 -->
 		<div id="footer">
-			<p>
+			<p style="text-align: center;">
 				© 2023 - 2025
+			</p>
+			<p>
 				<a href="/">
 					敬新记
 				</a>
@@ -259,11 +264,47 @@
 					版权所有
 				</a>
 				|
-				<a href="http://beian.miit.gov.cn">
-					蒙ICP备2025027273号-1
+				<a id="beian-link" href="http://beian.miit.gov.cn" target="_blank">
+					<span id="beian-number">蒙ICP备2025027273号-1</span>
 				</a>
 			</p>
 		</div>
+		<script>
+			// 根据域名动态设置备案号
+			function setBeianNumber() {
+				const domain = window.location.hostname;
+				const beianLink = document.getElementById('beian-link');
+				const beianNumber = document.getElementById('beian-number');
+				
+				// 定义不同域名对应的备案号
+				const beianMap = {
+					'wilkx.top': '蒙ICP备2025027273号-1',
+					'www.wilkx.top': '蒙ICP备2025027273号-1',
+					// 可以添加更多域名和对应的备案号
+					// 'example.com': '京ICP备12345678号-1',
+					// 'www.example.com': '京ICP备12345678号-1'
+				};
+				
+				// 如果是本地打开（file协议）
+				if (window.location.protocol === 'file:') {
+					beianNumber.textContent = '本地测试，未提交备案';
+					// 阻止链接跳转
+					beianLink.href = 'javascript:void(0)';
+					beianLink.onclick = function(e) {
+						e.preventDefault();
+						alert('本地测试环境，备案链接无法跳转');
+					};
+				}
+				// 如果当前域名在映射中，则使用对应的备案号
+				else if (beianMap[domain]) {
+					beianNumber.textContent = beianMap[domain];
+				}
+				// 否则使用默认备案号（已在HTML中设置）
+			}
+			
+			// 页面加载完成后执行
+			document.addEventListener('DOMContentLoaded', setBeianNumber);
+		</script>
 	</body>
 
 </html>
